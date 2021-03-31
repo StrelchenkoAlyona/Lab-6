@@ -1,0 +1,65 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+int main() 
+{
+const int min_dimension = 1;
+const int max_dimension = 10;
+int dimension = 0;
+cout << "Enter the dimension of the square matrix" << endl;
+while (dimension < min_dimension || dimension > max_dimension) {
+cout << "Number of dimension (" << min_dimension << " <= dimension <= " << max_dimension << "): ";
+cin >> dimension;
+}
+cout << endl;
+int random_min = 0, random_max = 0;
+cout << "Enter the boundaries of the random interval" << endl;
+while (random_min >= random_max) {
+cout << "Min random number: ";
+cin >> random_min;
+cout << "Max random number: ";
+cin >> random_max;
+}
+cout << endl;
+int **matrix = new int* [dimension];
+cout << "Source matrix" << endl;
+for (int row = 0; row < dimension; row++) {
+matrix[row] = new int [dimension];
+for (int col = 0; col < dimension; col++) {
+matrix[row][col] = random_min + rand() % (random_max - random_min + 1);
+cout << setw(5) << matrix[row][col];
+}
+cout << endl;
+}
+cout << endl;
+int positive_numbers_count[dimension]; 
+cout << "Positive numbers count in matrix rows" << endl;
+for (int row = 0; row < dimension; row++) {
+positive_numbers_count[row] = 0;
+for (int col = 0; col < dimension; col++) {
+if (matrix[row][col] <= 0) continue;
+positive_numbers_count[row] = positive_numbers_count[row] + 1;
+}
+cout << positive_numbers_count[row] << " ";
+}
+cout << endl << endl;
+for (int i = dimension - 1; i >= 0; i--) {
+int rows_cols_sum = 0;
+for (int row = 0; row < dimension; row++) {
+rows_cols_sum = rows_cols_sum + matrix[row][i];
+}
+for (int col = 0; col < dimension; col++) {
+if (col == i) continue;
+rows_cols_sum = rows_cols_sum + matrix[i][col];
+}
+matrix[i][i] = rows_cols_sum;
+}
+cout << "Calculated matrix" << endl;
+for (int row = 0; row < dimension; row++) {
+for (int col = 0; col < dimension; col++) {
+cout << setw(5) << matrix[row][col];
+}
+cout << endl;
+    }
+cout << endl;
+}

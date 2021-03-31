@@ -1,0 +1,44 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+int main() {
+const int min_dimension = 1;
+const int max_dimension = 10;
+int dimension = 0;
+cout << "Enter the dimension of the square matrix" << endl;
+while (dimension < min_dimension || dimension > max_dimension) {
+cout << "Number of dimension (" << min_dimension << " <= dimension <= " << max_dimension << "): ";
+cin >> dimension;
+}
+cout << endl;
+int random_min = 0, random_max = 0;
+cout << "Enter the boundaries of the random interval" << endl;
+while (random_min >= random_max) {
+cout << "Min random number: ";
+cin >> random_min;
+cout << "Max random number: ";
+cin >> random_max;
+}
+cout << endl;
+int matrix[dimension][dimension];
+cout << "Source matrix" << endl;
+for (int row = 0; row < dimension; row++) {
+for (int col = 0; col < dimension; col++) {
+matrix[row][col] = random_min + rand() % (random_max - random_min + 1);
+cout << setw(5) << matrix[row][col];
+}
+cout << endl;
+}
+cout << endl;
+for (int i = dimension - 1; i >= 0; i--) {
+matrix[i][dimension - 1] = matrix[0][i] + matrix[dimension - 1][i];
+}
+cout << "Calculated matrix" << endl;
+for (int row = 0; row < dimension; row++) {
+for (int col = 0; col < dimension; col++) {
+cout << setw(5) << matrix[row][col];
+}
+cout << endl;
+}
+cout << endl;
+}
